@@ -1,148 +1,109 @@
-// Valores por defecto para objetos y parámetros
+import { BIT_TYPES } from './constants.js';
 
-import { DEFAULT_CNC_PARAMS, BIT_TYPES, SHAPE_TYPES, OPERATION_TYPES, QR_ERROR_CORRECTION } from './constants.js';
-
-export const DEFAULT_BIT = {
-  id: 'vbit-30-03',
-  name: 'V-Bit 30° 0.3mm',
-  type: BIT_TYPES.V_BIT,
-  diameter: 0.3, // mm
-  angle: 30, // degrees
-  flutes: 2,
-  maxRPM: 12000,
-};
-
-export const DEFAULT_OPERATION = {
-  type: OPERATION_TYPES.CONTOUR,
-  depthPerPass: DEFAULT_CNC_PARAMS.depthPerPass,
-  pluneRate: DEFAULT_CNC_PARAMS.pluneRate,
-  feedRate: DEFAULT_CNC_PARAMS.feedRate,
-  rpm: DEFAULT_CNC_PARAMS.rpm,
-  maxDepth: DEFAULT_CNC_PARAMS.maxDepth,
-  stepover: 0.1, // mm
-  safetyHeight: DEFAULT_CNC_PARAMS.safetyHeight,
-  checkForCollisions: true,
-};
-
-export const DEFAULT_SHAPE = {
-  [SHAPE_TYPES.CIRCLE]: {
-    radius: 5,
-    x: 25,
-    y: 15,
-  },
-  [SHAPE_TYPES.RECTANGLE]: {
-    width: 10,
-    height: 8,
-    x: 20,
-    y: 11,
-  },
-  [SHAPE_TYPES.HEART]: {
-    size: 8,
-    x: 25,
-    y: 15,
-  },
-  [SHAPE_TYPES.STAR]: {
-    size: 8,
-    points: 5,
-    x: 25,
-    y: 15,
-  },
-};
-
-export const DEFAULT_TEXT = {
-  content: 'Texto',
-  font: 'Roboto',
-  fontSize: 12,
-  weight: 400,
-  x: 10,
-  y: 15,
-  color: '#000000',
-  strokeWidth: 0.2,
-};
-
-export const DEFAULT_QRCODE = {
-  content: 'https://example.com',
-  size: 20, // mm
-  errorCorrection: QR_ERROR_CORRECTION.M,
-  x: 15,
-  y: 5,
-};
-
-export const DEFAULT_IMAGE = {
-  width: 20,
-  height: 20,
-  x: 15,
-  y: 5,
-  threshold: 128,
-  turnPolicy: 'minority',
-};
-
+/**
+ * Base de datos predefinida de brocas
+ */
 export const BIT_DATABASE = [
   {
-    id: 'vbit-30-03',
-    name: 'V-Bit 30° 0.3mm',
-    type: BIT_TYPES.V_BIT,
-    diameter: 0.3,
+    id: 'vbit-30',
+    name: 'V-Bit 30°',
+    type: BIT_TYPES.VBIT,
+    diameter: 3.175,
     angle: 30,
-    flutes: 2,
-    maxRPM: 12000,
+    flutes: 1,
+    material: 'tungsten',
   },
   {
-    id: 'vbit-60-05',
-    name: 'V-Bit 60° 0.5mm',
-    type: BIT_TYPES.V_BIT,
-    diameter: 0.5,
+    id: 'vbit-60',
+    name: 'V-Bit 60°',
+    type: BIT_TYPES.VBIT,
+    diameter: 3.175,
     angle: 60,
-    flutes: 2,
-    maxRPM: 12000,
+    flutes: 1,
+    material: 'tungsten',
   },
   {
-    id: 'vbit-90-1',
-    name: 'V-Bit 90° 1mm',
-    type: BIT_TYPES.V_BIT,
-    diameter: 1,
+    id: 'vbit-90',
+    name: 'V-Bit 90°',
+    type: BIT_TYPES.VBIT,
+    diameter: 3.175,
     angle: 90,
-    flutes: 2,
-    maxRPM: 12000,
+    flutes: 1,
+    material: 'tungsten',
   },
   {
-    id: 'flat-1',
+    id: 'flute-1mm',
     name: 'Flauta 1mm',
-    type: BIT_TYPES.FLAT_END_MILL,
-    diameter: 1,
+    type: BIT_TYPES.FLUTE,
+    diameter: 1.0,
+    angle: 0,
     flutes: 2,
-    maxRPM: 12000,
+    material: 'hss',
   },
   {
-    id: 'flat-2',
+    id: 'flute-2mm',
     name: 'Flauta 2mm',
-    type: BIT_TYPES.FLAT_END_MILL,
-    diameter: 2,
+    type: BIT_TYPES.FLUTE,
+    diameter: 2.0,
+    angle: 0,
     flutes: 2,
-    maxRPM: 10000,
+    material: 'hss',
   },
   {
-    id: 'flat-3',
+    id: 'flute-3mm',
     name: 'Flauta 3mm',
-    type: BIT_TYPES.FLAT_END_MILL,
-    diameter: 3,
+    type: BIT_TYPES.FLUTE,
+    diameter: 3.0,
+    angle: 0,
     flutes: 2,
-    maxRPM: 8000,
+    material: 'hss',
   },
   {
-    id: 'ball-1',
+    id: 'ball-1mm',
     name: 'Ball End 1mm',
-    type: BIT_TYPES.BALL_END_MILL,
-    diameter: 1,
+    type: BIT_TYPES.BALL_END,
+    diameter: 1.0,
+    angle: 0,
     flutes: 2,
-    maxRPM: 12000,
+    material: 'hss',
   },
   {
-    id: 'ball-2',
+    id: 'ball-2mm',
     name: 'Ball End 2mm',
-    type: BIT_TYPES.BALL_END_MILL,
-    diameter: 2,
+    type: BIT_TYPES.BALL_END,
+    diameter: 2.0,
+    angle: 0,
     flutes: 2,
-    maxRPM: 10000,
+    material: 'hss',
   },
 ];
+
+/**
+ * Parámetros CNC recomendados por material
+ */
+export const RECOMMENDED_PARAMS = {
+  wood: {
+    rpm: 8000,
+    feedRate: 80,
+    pluneRate: 30,
+    depthPerPass: 0.1,
+  },
+  plastic: {
+    rpm: 6000,
+    feedRate: 50,
+    pluneRate: 20,
+    depthPerPass: 0.08,
+  },
+  aluminum: {
+    rpm: 3000,
+    feedRate: 40,
+    pluneRate: 15,
+    depthPerPass: 0.05,
+  },
+  pcb: {
+    rpm: 12000,
+    feedRate: 100,
+    pluneRate: 20,
+    depthPerPass: 0.05,
+  },
+};

@@ -1,5 +1,8 @@
-// Constantes globales de la aplicación
+/**
+ * Constantes de la aplicación
+ */
 
+// Dimensiones del workspace
 export const DEFAULT_WORKSPACE = {
   width: 50, // mm
   height: 30, // mm
@@ -9,58 +12,48 @@ export const DEFAULT_WORKSPACE = {
   colorGridLarge: 'rgba(100, 100, 100, 0.4)',
 };
 
-export const DEFAULT_CNC_PARAMS = {
-  depthPerPass: 0.05, // mm
-  pluneRate: 20, // mm/min
-  feedRate: 100, // mm/min
-  rpm: 10000,
-  maxDepth: 0.15, // mm
-  safetyHeight: 5, // mm
+// Tipos de objetos
+export const OBJECT_TYPES = {
+  CIRCLE: 'circle',
+  RECTANGLE: 'rectangle',
+  STAR: 'star',
+  HEART: 'heart',
+  TEXT: 'text',
+  QRCODE: 'qrcode',
+  IMAGE: 'image',
+  PATH: 'path',
 };
 
+// Tipos de brocas
 export const BIT_TYPES = {
-  V_BIT: 'v-bit',
-  FLAT_END_MILL: 'flat-end',
-  BALL_END_MILL: 'ball-end',
-  FLUTE_BIT: 'flute-bit',
+  VBIT: 'v-bit',
+  FLUTE: 'flute',
+  BALL_END: 'ball-end',
 };
 
+// Tipos de operaciones CNC
 export const OPERATION_TYPES = {
   POCKET: 'pocket',
   CONTOUR: 'contour',
   ENGRAVE: 'engrave',
 };
 
-export const SHAPE_TYPES = {
-  CIRCLE: 'circle',
-  RECTANGLE: 'rectangle',
-  HEART: 'heart',
-  STAR: 'star',
-  POLYGON: 'polygon',
-  TEXT: 'text',
-  IMAGE: 'image',
-  QRCODE: 'qrcode',
-  PATH: 'path',
+// Parámetros CNC predeterminados
+export const DEFAULT_CNC_PARAMS = {
+  rpm: 8000,
+  feedRate: 80,
+  pluneRate: 30,
+  depthPerPass: 0.2,
+  maxDepth: 1,
+  stepover: 0.5,
 };
 
-export const ZOOM_LEVELS = {
-  MIN: 0.1,
-  MAX: 10,
-  STEP: 0.1,
-};
-
-export const CANDLE_COMPATIBLE = {
-  format: 'gcode',
-  units: 'mm',
-  lineNumbers: false,
-  comments: true,
-};
-
-export const ROBOTO_FONT_URL = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap';
-
-export const QR_ERROR_CORRECTION = {
-  L: 'L', // 7%
-  M: 'M', // 15%
-  Q: 'Q', // 25%
-  H: 'H', // 30%
+// Colores predefinidos
+export const COLORS = {
+  PRIMARY: '#3498db',
+  SUCCESS: '#2ecc71',
+  WARNING: '#f39c12',
+  ERROR: '#e74c3c',
+  DARK: '#1e1e1e',
+  LIGHT: '#ecf0f1',
 };

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Design Pro - Editor de Diseños CNC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-section">
+                <button id="btn-new" class="btn btn-primary" title="Nuevo Proyecto">📄 Nuevo</button>
+                <button id="btn-open" class="btn" title="Abrir Proyecto">📂 Abrir</button>
+                <button id="btn-save" class="btn" title="Guardar Proyecto">💾 Guardar</button>
+                <button id="btn-download" class="btn" title="Descargar Proyecto">⬇️ Descargar</button>
+            </div>
+
+            <div class="toolbar-separator"></div>
+
+            <div class="toolbar-section">
+                <button id="btn-undo" class="btn" title="Deshacer (Ctrl+Z)">↶ Deshacer</button>
+                <button id="btn-redo" class="btn" title="Rehacer (Ctrl+Y)">↷ Rehacer</button>
+            </div>
+
+            <div class="toolbar-separator"></div>
+
+            <!-- Herramientas de Dibujo -->
+            <div class="toolbar-section">
+                <button id="tool-circle" class="btn tool-btn" data-tool="circle" title="Círculo">⭕</button>
+                <button id="tool-rectangle" class="btn tool-btn" data-tool="rectangle" title="Rectángulo">▭</button>
+                <button id="tool-star" class="btn tool-btn" data-tool="star" title="Estrella">⭐</button>
+                <button id="tool-heart" class="btn tool-btn" data-tool="heart" title="Corazón">♥</button>
+                <button id="tool-text" class="btn tool-btn" data-tool="text" title="Texto">🔤</button>
+                <button id="tool-qrcode" class="btn tool-btn" data-tool="qrcode" title="Código QR">⊞</button>
+                <button id="tool-image" class="btn tool-btn" data-tool="image" title="Imagen">🖼️</button>
+                <button id="tool-path" class="btn tool-btn" data-tool="path" title="Trazo">✏️</button>
+            </div>
+
+            <div class="toolbar-separator"></div>
+
+            <!-- Zoom -->
+            <div class="toolbar-section">
+                <button id="btn-zoom-in" class="btn" title="Zoom +">🔍+</button>
+                <button id="btn-zoom-out" class="btn" title="Zoom -">🔍-</button>
+                <button id="btn-zoom-fit" class="btn" title="Ajustar a vista">⊡</button>
+                <button id="btn-zoom-reset" class="btn" title="Zoom 100%">100%</button>
+            </div>
+
+            <div class="toolbar-separator"></div>
+
+            <!-- CNC -->
+            <div class="toolbar-section">
+                <button id="btn-generate-gcode" class="btn btn-success" title="Generar G-code">⚙️ G-code</button>
+                <button id="btn-export-gcode" class="btn" title="Exportar G-code">📥 Exportar NC</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Canvas -->
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+            </div>
+
+            <!-- Right Panels -->
+            <div class="right-panels">
+                <!-- Objects Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Objetos</h3>
+                    </div>
+                    <div class="panel-content">
+                        <div id="objects-list" class="objects-list"></div>
+                        <button id="btn-delete-selected" class="btn btn-danger btn-small">Eliminar Seleccionados</button>
+                    </div>
+                </div>
+
+                <!-- Properties Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Propiedades</h3>
+                    </div>
+                    <div class="panel-content" id="properties-panel">
+                        <p class="text-muted">Selecciona un objeto</p>
+                    </div>
+                </div>
+
+                <!-- CNC Operations Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Operaciones CNC</h3>
+                    </div>
+                    <div class="panel-content">
+                        <form id="cnc-operations-form">
+                            <div class="form-group">
+                                <label>Tipo de Operación:</label>
+                                <select id="operation-type">
+                                    <option value="pocket">Pocket (Fresado)</option>
+                                    <option value="contour">Contorno</option>
+                                    <option value="engrave">Gravado</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Broca:</label>
+                                <select id="bit-select"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Profundidad (mm):</label>
+                                <input type="number" id="max-depth" min="0.1" max="10" step="0.1" value="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Profundidad por Pasada (mm):</label>
+                                <input type="number" id="depth-per-pass" min="0.05" max="5" step="0.05" value="0.2">
+                            </div>
+
+                            <div class="form-group">
+                                <label>RPM:</label>
+                                <input type="number" id="rpm" min="100" max="12000" step="100" value="8000">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Feed Rate (mm/min):</label>
+                                <input type="number" id="feed-rate" min="10" max="500" step="10" value="80">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Plunge Rate (mm/min):</label>
+                                <input type="number" id="plunge-rate" min="5" max="200" step="5" value="30">
+                            </div>
+
+                            <button type="button" id="btn-add-operation" class="btn btn-primary btn-small">Añadir Operación</button>
+                        </form>
+
+                        <div id="operations-list" class="operations-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notifications-container" class="notifications-container"></div>
+
+    <!-- Modal para formularios -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal</h2>
+                <button class="btn-close" id="btn-close-modal">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
